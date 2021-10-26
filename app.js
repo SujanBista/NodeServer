@@ -1,24 +1,22 @@
 // const { urlencoded } = require("express");
 const userRouter = require('./routes/users')
-
 const express = require("express");
 const app = express();
 const PORT = 3002;
-
 const dotenv = require('dotenv');
 dotenv.config({path:'./config.env'});
 
 
-
-// DEFAULT ===  Middelware 
+// Default Middelware 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 // Router
 app.use('/users',userRouter);
 
+// Server Running On Port 3002
 app.listen(PORT, () =>{
-    console.log("server runnng")
+    console.log("Server Running ")
 })
 
 
@@ -33,12 +31,6 @@ app.listen(PORT, () =>{
 //     // });
     
 
-// mongoose.connect(DB).then(() => {
-//     console.log('succes');
-// }).catch((err) => console.log('no con'));
-
-
-
 //CUSTOM MIDDELWARE FOR CHECKING QUERIES
 // app.use((req,res,next) => {
 //     console.log('in miidleare');
@@ -48,7 +40,3 @@ app.listen(PORT, () =>{
 //         next();
 //     }
 // });
-
-
-
-
