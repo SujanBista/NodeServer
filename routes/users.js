@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
-
+const jwt = require('jsonwebtoken')
 // DATABASE CONNECTION
 require('../db/conn');
 const User = require('../model/userSchema')
@@ -42,7 +42,7 @@ router.post('/register', async (req, res) => {
         if (savedUser) return res.status(200).json({ data: "savedUser" })
 
     } catch (ex) {
-        return res.status(500).json({ data: ex.message() })
+        return res.status(500).json({ data:'error in the saving' })
     }
 });
 
@@ -59,6 +59,9 @@ router.post('/login', async (req, res) => {
 
         const passwordcheck = await bcrypt.compare(password, user.password); 
         passwordcheck ? res.status(200).json({ data: "Welcome" }) : res.status(400).json({ data: "Credentials Dosent Match!!" });
+
+        const token = await user.generateAuthToken();
+        console.log(token);
 
     } catch (ex) {
         return res.status(500).json({ data: 'error' })
